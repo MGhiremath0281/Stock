@@ -26,8 +26,7 @@
 
 1. **Clone/Download the Project**
    ```bash
-   git clone [your-repository-url]
-   cd stock-price-tracker
+   git clone https://github.com/MGhiremath0281/Stock.git
    ```
 
 2. **Configure API Key**

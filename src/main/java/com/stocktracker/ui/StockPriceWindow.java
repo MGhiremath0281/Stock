@@ -1,22 +1,25 @@
 package com.stocktracker.ui;
 
+import java.util.List;
+import java.util.Map;
+
 import com.stocktracker.model.StockPrice;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
-import java.util.Map;
 
 public class StockPriceWindow {
     private final Stage stage;
     private final Label priceLabel;
     private final Label timestampLabel;
     private final ComboBox<String> symbolComboBox;
+    private final StockChartComponent chartComponent;
     private final Map<String, String> stockNames = Map.of(
         "AAPL", "Apple Inc.",
         "MSFT", "Microsoft Corporation",
@@ -26,7 +29,7 @@ public class StockPriceWindow {
     );
 
     public StockPriceWindow() {
-        stage = new Stage(StageStyle.UTILITY);
+        stage = new Stage();
         stage.setTitle("Stock Price Tracker");
         stage.setAlwaysOnTop(true);
 
@@ -44,12 +47,17 @@ public class StockPriceWindow {
         timestampLabel = new Label();
         timestampLabel.setStyle("-fx-font-size: 12px;");
 
-        VBox root = new VBox(10);
-        root.setAlignment(Pos.CENTER);
-        root.setPadding(new Insets(15));
-        root.getChildren().addAll(symbolComboBox, priceLabel, timestampLabel);
+        // Create chart component
+        chartComponent = new StockChartComponent();
 
-        Scene scene = new Scene(root, 300, 150);
+        // Create main layout
+        VBox root = new VBox(10);
+        root.setAlignment(Pos.TOP_CENTER);
+        root.setPadding(new Insets(15));
+        VBox.setVgrow(chartComponent, Priority.ALWAYS);
+        root.getChildren().addAll(symbolComboBox, priceLabel, timestampLabel, chartComponent);
+
+        Scene scene = new Scene(root, 800, 600);
         stage.setScene(scene);
     }
 
@@ -65,6 +73,10 @@ public class StockPriceWindow {
     public void updatePrice(StockPrice stockPrice) {
         priceLabel.setText(String.format("$%.2f", stockPrice.getPrice()));
         timestampLabel.setText("Last updated: " + stockPrice.getTimestamp());
+    }
+
+    public void updateChart(List<StockPrice> prices) {
+        chartComponent.updateChart(prices, getSelectedSymbol());
     }
 
     public void show() {

@@ -1,14 +1,16 @@
 package com.stocktracker.model;
 
+import java.time.LocalDateTime;
+
 public class StockPrice {
     private String symbol;
     private double price;
-    private String timestamp;
+    private LocalDateTime timestamp;
 
     public StockPrice() {
     }
 
-    public StockPrice(String symbol, double price, String timestamp) {
+    public StockPrice(String symbol, double price, LocalDateTime timestamp) {
         this.symbol = symbol;
         this.price = price;
         this.timestamp = timestamp;
@@ -31,11 +33,11 @@ public class StockPrice {
         this.price = price;
     }
 
-    public String getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 

@@ -1,0 +1,4 @@
+com\stocktracker\service\StockPriceService.class
+com\stocktracker\StockTrackerApp.class
+com\stocktracker\model\StockPrice.class
+com\stocktracker\ui\StockPriceWindow.class
